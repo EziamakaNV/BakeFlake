@@ -1,0 +1,30 @@
+{
+  "name": "BakeFlake",
+  "version": "1.0.0",
+  "description": "A simple web app to implement funds transfers to vendors/suppliers for an imaginary bakery using Paystack API's",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "babel src -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EziamakaNV/BakeFlake.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EziamakaNV/BakeFlake/issues"
+  },
+  "homepage": "https://github.com/EziamakaNV/BakeFlake#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5"
+  }
+}
