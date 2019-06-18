@@ -19,14 +19,10 @@ class Validation {
     return _joi.default.validate(validationObject, schema);
   }
 
-  static newCarValidation(validationObject) {
+  static accountValidation(validationObject) {
     const schema = {
-      state: _joi.default.string().valid('new', 'used').required(),
-      status: _joi.default.string().valid('available').required(),
-      price: _joi.default.number().integer().min(1).max(999999999999).required(),
-      manufacturer: _joi.default.string().min(3).max(50).required(),
-      model: _joi.default.string().min(3).max(50).required(),
-      bodyType: _joi.default.string().min(3).max(15).required()
+      account_number: _joi.default.string().min(9).max(10).required(),
+      bank_code: _joi.default.string().min(3).max(3).required()
     };
     return _joi.default.validate(validationObject, schema);
   }
