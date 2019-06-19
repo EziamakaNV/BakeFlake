@@ -10,6 +10,8 @@ import userRoute from './routes/user';
 
 import apiRoute from './routes/api';
 
+import viewsRoute from './routes/views';
+
 require('dotenv').config();
 
 const app = express();
@@ -28,7 +30,7 @@ app.use('/api/v1/auth', userRoute);
 
 app.use('/api/v1', apiRoute);
 
-// app.use('/', viewsRoute);
+app.use('/', viewsRoute);
 
 // Not Found Handler
 app.use((req, res) => { res.status(404).send('Not Found!'); });
