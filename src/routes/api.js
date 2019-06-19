@@ -17,5 +17,7 @@ router.route('/transferrecipient')
 
 router.post('/transfer', Authentication.verifyToken, APIController.initiateTransfer);
 
+router.post('/transfer/bulk', Authentication.verifyToken, APIController.bulkTransfer);
+
 
 export default router;

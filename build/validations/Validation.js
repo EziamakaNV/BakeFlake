@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+require("core-js/modules/web.dom.iterable");
+
 var _joi = _interopRequireDefault(require("@hapi/joi"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -50,6 +52,18 @@ class Validation {
       amount: _joi.default.number().integer().min(50).required(),
       recipient: _joi.default.string().min(1).max(200).required(),
       reason: _joi.default.string().min(1).max(50).required()
+    };
+    return _joi.default.validate(validationObject, schema);
+  }
+
+  static bulkTransfer(validationObject) {
+    const transfer = _joi.default.object().keys({
+      amount: _joi.default.number().integer().min(50).required(),
+      recipient: _joi.default.string().min(1).max(200).required()
+    });
+
+    const schema = {
+      transfers: _joi.default.array().items(transfer)
     };
     return _joi.default.validate(validationObject, schema);
   }

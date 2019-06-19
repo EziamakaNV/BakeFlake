@@ -44,6 +44,14 @@ class Validation {
     };
     return Joi.validate(validationObject, schema);
   }
+
+  static bulkTransfer(validationObject) {
+    const transfer = Joi.object().keys({amount: Joi.number().integer().min(50).required(), recipient: Joi.string().min(1).max(200).required()});
+    const schema = {
+      transfers: Joi.array().items(transfer),
+    };
+    return Joi.validate(validationObject, schema);
+  }
 }
 
 export default Validation;

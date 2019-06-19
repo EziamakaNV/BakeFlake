@@ -145,6 +145,31 @@ class APIController {
         }
     }
   }
+
+  static async bulkTransfer(req, res) {
+    const { transfers } = req.body;
+    const { error } = Validation.bulkTransfer({ transfers });
+    if (error) {
+        response(res, 400, error);
+    } else {
+        //convert all the amounts in Naira to Kobo
+        transfers.forEach(transfer => transfer.amount *= 100);
+        try {
+            const responseBody = await axiosInstance.post('/transfer/bulk', {
+                source: 'balance',
+                transfers,
+                currency: 'NGN',
+            }, { headers: { 'Content-Type': 'application/json' } });
+            if (responseBody.status > 299){
+                return response(res, responseBody.status, responseBody.data.message );
+            } else{
+                response(res, responseBody.status, responseBody.data);
+            }
+        } catch (error) {
+            response(res, error.response.status, error.response.data);
+        }
+    }
+  }
 }
 
 export default APIController;

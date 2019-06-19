@@ -20,5 +20,6 @@ router.get('/balance', _Authentication.default.verifyToken, _API.default.checkBa
 router.get('/validate_account', _Authentication.default.verifyToken, _API.default.validateAccount);
 router.route('/transferrecipient').post(_Authentication.default.verifyToken, _API.default.createRecipient).get(_Authentication.default.verifyToken, _API.default.getRecipients);
 router.post('/transfer', _Authentication.default.verifyToken, _API.default.initiateTransfer);
+router.post('/transfer/bulk', _Authentication.default.verifyToken, _API.default.bulkTransfer);
 var _default = router;
 exports.default = _default;
