@@ -15,16 +15,24 @@ var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+const axiosInstance = _axios.default.create({
+  baseURL: 'https://api.paystack.co',
+  headers: {
+    'Authorization': "Bearer ".concat(process.env.PAYSTACK_SECRET_KEY)
+  },
+  validateStatus: status => {
+    return status < 500;
+  } // Reject only if the status code is greater than or equal to 500
+
+});
+
 require('dotenv').config();
 
 class APIController {
   static async checkBalance(req, res) {
     try {
-      const responseBody = await _axios.default.get('https://api.paystack.co/balance', {
-        headers: {
-          'Authorization': "Bearer ".concat(process.env.PAYSTACK_SECRET_KEY)
-        }
-      });
+      const responseBody = await axiosInstance.get('/balance');
+      console.log('new axios');
       (0, _Response.default)(res, responseBody.status, responseBody.data);
     } catch (error) {
       (0, _Response.default)(res, 500, error);
@@ -32,15 +40,43 @@ class APIController {
   }
 
   static async createRecipient(req, res) {
-    try {
-      const responseBody = await _axios.default.get('https://api.paystack.co/balance', {
-        headers: {
-          'Authorization': "Bearer ".concat(process.env.PAYSTACK_SECRET_KEY)
-        }
-      });
-      (0, _Response.default)(res, responseBody.status, responseBody.data);
-    } catch (error) {
-      (0, _Response.default)(res, 500, error);
+    const {
+      name,
+      account_number,
+      bank_code,
+      description
+    } = req.body;
+    const validationObject = {
+      name,
+      account_number,
+      bank_code,
+      description
+    };
+
+    const {
+      error
+    } = _Validation.default.createRecipient(validationObject);
+
+    if (error) {
+      (0, _Response.default)(res, 400, error);
+    } else {
+      try {
+        const responseBody = await axiosInstance.post('/transferrecipient', {
+          type: 'nuban',
+          name,
+          account_number,
+          bank_code,
+          currency: 'NGN',
+          description
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        (0, _Response.default)(res, responseBody.status, responseBody.data);
+      } catch (error) {
+        (0, _Response.default)(res, 500, error);
+      }
     }
   }
 
@@ -62,18 +98,11 @@ class APIController {
       (0, _Response.default)(res, 400, error);
     } else {
       try {
-        const responseBody = await _axios.default.get('https://api.paystack.co/bank/resolve', {
-          headers: {
-            'Authorization': "Bearer ".concat(process.env.PAYSTACK_SECRET_KEY)
-          },
+        const responseBody = await axiosInstance.get('/bank/resolve', {
           params: {
             account_number,
             bank_code
-          },
-          validateStatus: status => {
-            return status < 500;
-          } // Reject only if the status code is greater than or equal to 500
-
+          }
         });
         console.log(responseBody.data);
 

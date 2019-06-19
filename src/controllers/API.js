@@ -6,12 +6,19 @@ import response from '../responses/Response';
 
 import axios from 'axios';
 
+const axiosInstance = axios.create({
+    baseURL: 'https://api.paystack.co',
+    headers: { 'Authorization': `Bearer ${process.env.PAYSTACK_SECRET_KEY}` },
+    validateStatus: (status) => { return status < 500 }, // Reject only if the status code is greater than or equal to 500
+});
+
 require('dotenv').config();
 
 class APIController {
   static async checkBalance(req, res) {
     try {
-        const responseBody = await axios.get('https://api.paystack.co/balance',{ headers: { 'Authorization': `Bearer ${process.env.PAYSTACK_SECRET_KEY}` } });
+        const responseBody = await axiosInstance.get('/balance');
+        console.log('new axios');
         response(res, responseBody.status, responseBody.data )
     } catch (error) {
         response(res, 500, error);
@@ -19,11 +26,25 @@ class APIController {
   }
 
   static async createRecipient(req, res) {
-    try {
-        const responseBody = await axios.get('https://api.paystack.co/balance',{ headers: { 'Authorization': `Bearer ${process.env.PAYSTACK_SECRET_KEY}` } });
-        response(res, responseBody.status, responseBody.data )
-    } catch (error) {
-        response(res, 500, error);
+    const { name, account_number, bank_code, description } = req.body;
+    const validationObject = { name, account_number, bank_code, description };
+    const { error } = Validation.createRecipient(validationObject);
+    if (error) {
+        response(res, 400, error);
+    } else {
+        try {
+            const responseBody = await axiosInstance.post('/transferrecipient', {
+                type: 'nuban',
+                name,
+                account_number,
+                bank_code,
+                currency: 'NGN',
+                description,
+            }, { headers: { 'Content-Type': 'application/json' } });
+            response(res, responseBody.status, responseBody.data )
+        } catch (error) {
+            response(res, 500, error);
+        }
     }
   }
 
@@ -37,10 +58,8 @@ class APIController {
           response(res, 400, error);
       } else {
         try {
-            const responseBody = await axios.get('https://api.paystack.co/bank/resolve',{ 
-                headers: { 'Authorization': `Bearer ${process.env.PAYSTACK_SECRET_KEY}` },
+            const responseBody = await axiosInstance.get('/bank/resolve',{ 
                 params: { account_number, bank_code},
-                validateStatus: (status) => { return status < 500 }, // Reject only if the status code is greater than or equal to 500
             });
             console.log(responseBody.data);
             if (responseBody.status > 299){

@@ -18,66 +18,12 @@ class Validation {
     return Joi.validate(validationObject, schema);
   }
 
-  static newOrderValidation(validationObject) {
+  static createRecipient(validationObject) {
     const schema = {
-      carId: Joi.number().integer().required(),
-      amount: Joi.number().integer().min(1).max(999999999999).required(),
-    };
-    return Joi.validate(validationObject, schema);
-  }
-
-  static orderUpdate(validationObject) {
-    const schema = {
-      orderId: Joi.number().integer().required(),
-      amount: Joi.number().integer().min(1).max(999999999999).required(),
-    };
-    return Joi.validate(validationObject, schema);
-  }
-
-  static carStatusUpdate(validationObject) {
-    const schema = {
-      status: Joi.string().valid('sold').required(),
-      carId: Joi.number().integer().required(),
-    };
-    return Joi.validate(validationObject, schema);
-  }
-
-  static carPriceUpdate(validationObject) {
-    const schema = {
-      price: Joi.number().integer().min(1).max(999999999999).required(),
-      carId: Joi.number().integer().required(),
-    };
-    return Joi.validate(validationObject, schema);
-  }
-
-  static viewSpecificCar(validationObject) {
-    const schema = {
-      carId: Joi.number().integer().required(),
-    };
-    return Joi.validate(validationObject, schema);
-  }
-
-  static viewCars(validationObject) {
-    const schema = {
-      status: Joi.string().valid('available'),
-      minPrice: Joi.number().integer().min(1).max(999999999999),
-      maxPrice: Joi.number().integer().min(1).max(999999999999),
-    };
-    return Joi.validate(validationObject, schema);
-  }
-
-  static deleteCar(validationObject) {
-    const schema = {
-      carId: Joi.number().integer().required(),
-    };
-    return Joi.validate(validationObject, schema);
-  }
-
-  static newFlagValidation(validationObject) {
-    const schema = {
-      carId: Joi.number().integer().required(),
-      reason: Joi.string().valid('offensive content', 'fraud', 'duplicate ad', 'other').required(),
-      description: Joi.string().required(),
+      name: Joi.string().min(1).max(60).required(),
+      account_number: Joi.string().min(9).max(10).required(),
+      bank_code: Joi.string().min(3).max(3).required(),
+      description: Joi.string().min(0).max(50),
     };
     return Joi.validate(validationObject, schema);
   }

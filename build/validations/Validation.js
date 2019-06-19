@@ -27,66 +27,12 @@ class Validation {
     return _joi.default.validate(validationObject, schema);
   }
 
-  static newOrderValidation(validationObject) {
+  static createRecipient(validationObject) {
     const schema = {
-      carId: _joi.default.number().integer().required(),
-      amount: _joi.default.number().integer().min(1).max(999999999999).required()
-    };
-    return _joi.default.validate(validationObject, schema);
-  }
-
-  static orderUpdate(validationObject) {
-    const schema = {
-      orderId: _joi.default.number().integer().required(),
-      amount: _joi.default.number().integer().min(1).max(999999999999).required()
-    };
-    return _joi.default.validate(validationObject, schema);
-  }
-
-  static carStatusUpdate(validationObject) {
-    const schema = {
-      status: _joi.default.string().valid('sold').required(),
-      carId: _joi.default.number().integer().required()
-    };
-    return _joi.default.validate(validationObject, schema);
-  }
-
-  static carPriceUpdate(validationObject) {
-    const schema = {
-      price: _joi.default.number().integer().min(1).max(999999999999).required(),
-      carId: _joi.default.number().integer().required()
-    };
-    return _joi.default.validate(validationObject, schema);
-  }
-
-  static viewSpecificCar(validationObject) {
-    const schema = {
-      carId: _joi.default.number().integer().required()
-    };
-    return _joi.default.validate(validationObject, schema);
-  }
-
-  static viewCars(validationObject) {
-    const schema = {
-      status: _joi.default.string().valid('available'),
-      minPrice: _joi.default.number().integer().min(1).max(999999999999),
-      maxPrice: _joi.default.number().integer().min(1).max(999999999999)
-    };
-    return _joi.default.validate(validationObject, schema);
-  }
-
-  static deleteCar(validationObject) {
-    const schema = {
-      carId: _joi.default.number().integer().required()
-    };
-    return _joi.default.validate(validationObject, schema);
-  }
-
-  static newFlagValidation(validationObject) {
-    const schema = {
-      carId: _joi.default.number().integer().required(),
-      reason: _joi.default.string().valid('offensive content', 'fraud', 'duplicate ad', 'other').required(),
-      description: _joi.default.string().required()
+      name: _joi.default.string().min(1).max(60).required(),
+      account_number: _joi.default.string().min(9).max(10).required(),
+      bank_code: _joi.default.string().min(3).max(3).required(),
+      description: _joi.default.string().min(0).max(50)
     };
     return _joi.default.validate(validationObject, schema);
   }
