@@ -18,10 +18,13 @@ class APIController {
   static async checkBalance(req, res) {
     try {
         const responseBody = await axiosInstance.get('/balance');
-        console.log('new axios');
-        response(res, responseBody.status, responseBody.data )
+        if (responseBody.status > 299){
+            return response(res, responseBody.status, responseBody.data.message );
+        } else{
+            response(res, responseBody.status, responseBody.data);
+        }
     } catch (error) {
-        response(res, 500, error);
+        response(res, error.response.status, error.response.data);
     }
   }
 
@@ -41,9 +44,51 @@ class APIController {
                 currency: 'NGN',
                 description,
             }, { headers: { 'Content-Type': 'application/json' } });
-            response(res, responseBody.status, responseBody.data )
+            if (responseBody.status > 299){
+                return response(res, responseBody.status, responseBody.data.message );
+            } else{
+                response(res, responseBody.status, responseBody.data);
+            }
         } catch (error) {
-            response(res, 500, error);
+            response(res, error.response.status, error.response.data);
+        }
+    }
+  }
+
+  static async getRecipients(req, res) {
+    if (req.query.hasOwnProperty('perPage') && req.query.hasOwnProperty('page')) {
+        console.log(1);
+        const perPage = Number(req.query.perPage);
+        const page = Number(req.query.page);
+        const { error } = Validation.getRecipients({ perPage, page });
+        if (error) {
+            response(res, 400, error);
+        } else {
+            try {
+                const responseBody = await axiosInstance.get('/transferrecipient',{ 
+                    params: { perPage, page},
+                });
+                console.log(responseBody.data);
+                if (responseBody.status > 299){
+                    return response(res, responseBody.status, responseBody.data.message );
+                } else{
+                    response(res, responseBody.status, responseBody.data);
+                }
+            } catch (error) {
+                response(res, error.response.status, error.response.data)
+            }
+        }
+    } else {
+        try {
+            const responseBody = await axiosInstance.get('/transferrecipient');
+            console.log(responseBody.data);
+            if (responseBody.status > 299){
+                return response(res, responseBody.status, responseBody.data.message );
+            } else{
+                response(res, responseBody.status, responseBody.data);
+            }
+        } catch (error) {
+            response(res, error.response.status, error.response.data)
         }
     }
   }

@@ -27,6 +27,14 @@ class Validation {
     };
     return Joi.validate(validationObject, schema);
   }
+
+  static getRecipients(validationObject) {
+    const schema = {
+      perPage: Joi.number().integer().min(1).max(999),
+      page: Joi.number().integer().min(1).max(999),
+    };
+    return Joi.validate(validationObject, schema);
+  }
 }
 
 export default Validation;

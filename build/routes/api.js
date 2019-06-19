@@ -18,6 +18,6 @@ const router = _express.default.Router();
 
 router.get('/balance', _Authentication.default.verifyToken, _API.default.checkBalance);
 router.get('/validate_account', _Authentication.default.verifyToken, _API.default.validateAccount);
-router.post('/transferrecipient', _Authentication.default.verifyToken, _API.default.createRecipient);
+router.route('/transferrecipient').post(_Authentication.default.verifyToken, _API.default.createRecipient).get(_Authentication.default.verifyToken, _API.default.getRecipients);
 var _default = router;
 exports.default = _default;

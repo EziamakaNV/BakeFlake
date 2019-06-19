@@ -37,6 +37,14 @@ class Validation {
     return _joi.default.validate(validationObject, schema);
   }
 
+  static getRecipients(validationObject) {
+    const schema = {
+      perPage: _joi.default.number().integer().min(1).max(999),
+      page: _joi.default.number().integer().min(1).max(999)
+    };
+    return _joi.default.validate(validationObject, schema);
+  }
+
 }
 
 var _default = Validation;
