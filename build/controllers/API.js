@@ -176,6 +176,49 @@ class APIController {
     }
   }
 
+  static async initiateTransfer(req, res) {
+    const {
+      recipient,
+      reason
+    } = req.body;
+    const amount = Number(req.body.amount);
+
+    const {
+      error
+    } = _Validation.default.initiateTransfer({
+      amount,
+      recipient,
+      reason
+    });
+
+    if (error) {
+      (0, _Response.default)(res, 400, error);
+    } else {
+      try {
+        const responseBody = await axiosInstance.post('/transfer', {
+          source: 'balance',
+          amount: amount * 100,
+          // Convert to kobo
+          currency: 'NGN',
+          reason: reason,
+          recipient
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (responseBody.status > 299) {
+          return (0, _Response.default)(res, responseBody.status, responseBody.data.message);
+        } else {
+          (0, _Response.default)(res, responseBody.status, responseBody.data);
+        }
+      } catch (error) {
+        (0, _Response.default)(res, error.response.status, error.response.data);
+      }
+    }
+  }
+
 }
 
 var _default = APIController;

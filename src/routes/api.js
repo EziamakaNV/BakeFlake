@@ -15,5 +15,7 @@ router.route('/transferrecipient')
 .post(Authentication.verifyToken, APIController.createRecipient)
 .get(Authentication.verifyToken, APIController.getRecipients);
 
+router.post('/transfer', Authentication.verifyToken, APIController.initiateTransfer);
+
 
 export default router;

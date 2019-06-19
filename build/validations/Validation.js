@@ -45,6 +45,15 @@ class Validation {
     return _joi.default.validate(validationObject, schema);
   }
 
+  static initiateTransfer(validationObject) {
+    const schema = {
+      amount: _joi.default.number().integer().min(50).required(),
+      recipient: _joi.default.string().min(1).max(200).required(),
+      reason: _joi.default.string().min(1).max(50).required()
+    };
+    return _joi.default.validate(validationObject, schema);
+  }
+
 }
 
 var _default = Validation;
