@@ -20,19 +20,20 @@
     <main>
         <h1 class='call-to-action'>Create A New Transfer Recepient</h1>
         <section id='post-ad-container'>
-            <form class='form-structure'>
-                <h2 class='form-headers'>RECEPIENT DETAILS</h2>
-                <div>
+            <h1 class="error-message-div"></h1>
+            <form class='form-structure' onsubmit="event.preventDefault()" id="validateForm">
+                <h2 class='form-headers'>VALIDATE RECIEVER</h2>
+                <!-- <div>
                     <label for='name'>Name</label>
                     <input type='text' required name='name' id='name'>
-                </div>
+                </div> -->
                 <div>
                     <label for='account_number'>Account Number</label>
-                    <input type='number' required name='account_number' id='account_number'>
+                    <input type='number' required name='validate_account_number' id='validate_account_number'>
                 </div>
                 <div>
                     <label for='bank_code'>Bank</label>
-                    <select name='bank_code' required>
+                    <select name='bank_code' id='validate_bank_code' required>
                         <option value=''></option>
                         <option value='044'>Access Bank</option>
                         <option value='063'>Access Bank (Diamond)</option>
@@ -64,11 +65,7 @@
                         <option value='057'>Zenith Bank</option>
                     </select>
                 </div>
-                <div>
-                    <label for='description'>Description</label>
-                    <textarea name="description" id="description" maxlength="50"></textarea>
-                </div>
-                <button class='button'>CREATE</button>
+                <button class='button' onclick="validateRecipient()">VALIDATE</button>
             </form>
         </section>
     </main>
@@ -77,7 +74,7 @@
             
         </div>
     </div>
-    <script src="Js/sign_in.js"></script>
+    <script src="Js/create_recipient.js"></script>
 </body>
 
 </html>
