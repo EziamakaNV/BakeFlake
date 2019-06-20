@@ -11,7 +11,7 @@ const sendFile = (res, path, options) => {
   return res.sendFile(path, options);
 };
 
-router.get('/login', (req, res) => {
+router.get('/', (req, res) => {
   sendFile(res, 'views/login.html', option);
 });
 
@@ -34,7 +34,7 @@ router.get('/bulk_transfer', Authentication.verifyToken, (req, res) => {
 router.get('/logout', Authentication.verifyToken, (req, res) => {
   res.clearCookie('jwt', { httpOnly: true });
   res.clearCookie('user');
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 export default router;

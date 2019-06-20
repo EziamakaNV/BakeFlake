@@ -1,3 +1,7 @@
+const menuBarAnimation = (menu) => {
+  menu.classList.toggle('change');
+  document.getElementById('myDropDown').classList.toggle('show');
+};
 const loader = document.querySelector('#loaderModal');
 const name = document.querySelector('#client-name');
 const balance = document.querySelector('#balance');
@@ -32,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             method: 'GET', 
           });
         const responseBodyBalance = await responseBalance.json();
-        balance.textContent = `Balance: NGN ${responseBodyBalance.data.data[0].balance}`;
+        balance.textContent = `Balance: NGN ${responseBodyBalance.data.data[0].balance / 100}`; // Convert from Kobo to Naira
         loader.style.display = 'none';
     } catch (error) {
         loader.style.display = 'none';

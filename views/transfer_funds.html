@@ -13,19 +13,41 @@
 <body>
     <header class='header flex-container'>
         <div class='menu-logo-container'>
-            <a href="/" class="previousIcon anchor-tag logo">←</a>
-            <a href='/' class='anchor-tag logo'>BakeFlake</a>
+            <div class='dropdown'>
+                <div class='menu-container' onclick='menuBarAnimation(this)'>
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+                <div id="myDropDown" class="dropdown-content">
+                    <a href="/dashboard">Dashboard</a>
+                    <a href='/create_recipient'>Create Recipient</a>
+                    <a href="/bulk_transfer">Bulk Transfer</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            <a href="/dashboard" class="previousIcon anchor-tag logo">←</a>
+            <a href='/dashboard' class='anchor-tag logo'>BakeFlake</a>
         </div>
+        <nav class='flex-container justify-right'>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href='/create_recipient'>Create Recipient</a></li>
+                <li><a href="/bulk_transfer">Bulk Transfer</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
         <h1 class='call-to-action'>Initiate Transfer</h1>
         <section id='post-ad-container'>
-            <form class='form-structure'>
+            <h1 class="error-message-div"></h1>
+            <form class='form-structure' onsubmit="event.preventDefault()">
                 <h2 class='form-headers'>TRANSFER DETAILS</h2>
                 <div>
                     <label for='recipient'>Recipient</label>
-                    <select name='recipient' required>
-                        <option value=''></option>
+                    <select name='recipient' id = 'recipient'required>
+                        <option value=''>-- Please Choose A Recipient --</option>
                     </select>
                 </div>
                 <div>
@@ -37,7 +59,7 @@
                     <textarea required name='reason' id='reason'></textarea>
                 </div>
                 <h5 class="call-to-action">There will be a N50 charge</h5>
-                <button class='button'>TRANSFER</button>
+                <button class='button' onclick="transferFunds()">TRANSFER</button>
             </form>
         </section>
     </main>
@@ -46,7 +68,7 @@
             
         </div>
     </div>
-    <script src="Js/sign_in.js"></script>
+    <script src="Js/transfer_funds.js"></script>
 </body>
 
 </html>

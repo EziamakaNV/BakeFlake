@@ -22,7 +22,7 @@ const sendFile = (res, path, options) => {
   return res.sendFile(path, options);
 };
 
-router.get('/login', (req, res) => {
+router.get('/', (req, res) => {
   sendFile(res, 'views/login.html', option);
 });
 router.get('/dashboard', _Authentication.default.verifyToken, (req, res) => {
@@ -42,7 +42,7 @@ router.get('/logout', _Authentication.default.verifyToken, (req, res) => {
     httpOnly: true
   });
   res.clearCookie('user');
-  res.redirect('/login');
+  res.redirect('/');
 });
 var _default = router;
 exports.default = _default;

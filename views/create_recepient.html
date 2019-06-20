@@ -12,10 +12,31 @@
 
 <body>
     <header class='header flex-container'>
-        <div class='menu-logo-container'>
-            <a href="/" class="previousIcon anchor-tag logo">←</a>
-            <a href='/' class='anchor-tag logo'>BakeFlake</a>
+       <div class='menu-logo-container'>
+            <div class='dropdown'>
+                <div class='menu-container' onclick='menuBarAnimation(this)'>
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+                <div id="myDropDown" class="dropdown-content">
+                    <a href="/dashboard">Dashboard</a>
+                    <a href='/transfer_funds'>Transfer Funds</a>
+                    <a href="/bulk_transfer">Bulk Transfer</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            <a href="/dashboard" class="previousIcon anchor-tag logo">←</a>
+            <a href='/dashboard' class='anchor-tag logo'>BakeFlake</a>
         </div>
+        <nav class='flex-container justify-right'>
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href='/transfer_funds'>Transfer Funds</a></li>
+                <li><a href="/bulk_transfer">Bulk Transfer</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
         <h1 class='call-to-action'>Create A New Transfer Recepient</h1>
@@ -23,10 +44,6 @@
             <h1 class="error-message-div"></h1>
             <form class='form-structure' onsubmit="event.preventDefault()" id="validateForm">
                 <h2 class='form-headers'>VALIDATE RECIEVER</h2>
-                <!-- <div>
-                    <label for='name'>Name</label>
-                    <input type='text' required name='name' id='name'>
-                </div> -->
                 <div>
                     <label for='account_number'>Account Number</label>
                     <input type='number' required name='validate_account_number' id='validate_account_number'>
@@ -34,7 +51,7 @@
                 <div>
                     <label for='bank_code'>Bank</label>
                     <select name='bank_code' id='validate_bank_code' required>
-                        <option value=''></option>
+                        <option value=''>-- Please Choose A Bank --</option>
                         <option value='044'>Access Bank</option>
                         <option value='063'>Access Bank (Diamond)</option>
                         <option value='035A'>ALAT by WEMA</option>

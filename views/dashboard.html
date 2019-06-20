@@ -13,8 +13,23 @@
 <body>
     <header class='header flex-container'>
         <div class='menu-logo-container'>
-            <a href='/' class='anchor-tag logo'>BakeFlake</a>
+            <div class='dropdown'>
+                <div class='menu-container' onclick='menuBarAnimation(this)'>
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+                <div id="myDropDown" class="dropdown-content">
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            <a href='#' class='anchor-tag logo'>BakeFlake</a>
         </div>
+        <nav class='flex-container justify-right'>
+            <ul>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
         <h2 class="call-to-action" id="client-name">John Doe</h2>

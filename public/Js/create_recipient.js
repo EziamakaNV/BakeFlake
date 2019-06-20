@@ -1,3 +1,7 @@
+const menuBarAnimation = (menu) => {
+    menu.classList.toggle('change');
+    document.getElementById('myDropDown').classList.toggle('show');
+  };
 const loader = document.querySelector('#loaderModal');
 const message = document.querySelector('.error-message-div');
 const validateForm = document.querySelector('#validateForm');
