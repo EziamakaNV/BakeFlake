@@ -7,3 +7,9 @@ https://bakeflake.herokuapp.com
 ### LOGIN CREDENTIALS
 Email: janedee@test.com
 password: 123456
+
+### Features
+- Validate Accounts
+- Create Transfer Recipients
+- Single Transfers
+- Bulk Transfers
