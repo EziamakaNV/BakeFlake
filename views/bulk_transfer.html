@@ -41,36 +41,21 @@
     <main>
         <h1 class='call-to-action'>Initiate Bulk Transfer</h1>
         <section id='post-ad-container' class='bulk-transfer-1'>
-            <form class='form-structure' id="form-bulk-transfer-1">
+            <form class='form-structure' id="form-bulk-transfer-1" onsubmit="event.preventDefault()">
                 <h2 class='form-headers'>Choose number of recipients</h2>
                 <div>
                     <label for='recipient_number'>Number of recepients</label>
                     <input type='number' required name='recipient_number' id='recipient_number'>
                 </div>
-                <button class='button'>SELECT</button>
+                <button class='button' onclick="numberOfRecipients()">SELECT</button>
             </form>
         </section>
 
         <section id='post-ad-container' class='bulk-transfer-2'>
-            <form class='form-structure' id="form-bulk-transfer-2">
-                <h2 class='form-headers'>TRANSFER DETAILS</h2>
-                <div>
-                    <label for='recipient1'>Recipient</label>
-                    <select name='recipient1' id="recipient1" required>
-                        <option value=''></option>
-                    </select>
-                    <label for='amount1'>Amount (Minimum Transfer - N50)</label>
-                    <input type='number' required name='amount1' id='amount1'>
-                </div>
-                <div>
-                    <label for='recipient2'>Recipient</label>
-                    <select name='recipient2' id='recipient2' required>
-                        <option value=''></option>
-                    </select>
-                    <label for='amount2'>Amount (Minimum Transfer - N50)</label>
-                    <input type='number' required name='amount2' id='amount2'>
-                </div>
-                <button class='button'>TRANSFER</button>
+            <h1 class="error-message-div"></h1>
+            <form class='form-structure' id="form-bulk-transfer-2" onsubmit="event.preventDefault()">
+                <h2 class='form-headers' id='bt2'>TRANSFER DETAILS</h2>
+                <button class='button' onclick="transfer()">TRANSFER</button>
             </form>
         </section>
     </main>

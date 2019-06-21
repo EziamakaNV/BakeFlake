@@ -530,3 +530,8 @@ nav ul {
   .bulk-transfer-2{
       display: none;
   }
+
+  .bottom-buffer {
+      height: 10vh;
+      width: 100%;
+  }
